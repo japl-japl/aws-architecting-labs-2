@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Automation of Creating a VPC and deploying a Web App
 
+Parameters:
+  KeyName:
+    Description: The EC2 Key Pair to allow SSH access to the instance
+    Type: 'AWS::EC2::KeyPair::web'
+
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -115,24 +120,19 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: '443'
-          ToPort: '443'
+          FromPort: '80'
+          ToPort: '80'
           CidrIp:  0.0.0.0/0
       SecurityGroupEgress:
         - IpProtocol: tcp
-          FromPort: '443'
-          ToPort: '443'
+          FromPort: '80'
+          ToPort: '80'
           CidrIp:  0.0.0.0/0
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: '80'
-          ToPort: '80'
-          CidrIp:  0.0.0.0/0
-      SecurityGroupEgress:
-        - IpProtocol: tcp
-          FromPort: '80'
-          ToPort: '80'
-          CidrIp:  0.0.0.0/0
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
 
   DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -218,6 +218,8 @@ Resources:
     Properties:
       SecurityGroupIds:
         [!Ref WebServerSecurityGroup]
+      KeyName: !Ref web
+            ImageId: ami-048b05baffa30bd5f
       SubnetId:
         !Ref "PublicSubnet1"
       IamInstanceProfile:
