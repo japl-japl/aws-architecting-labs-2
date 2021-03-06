@@ -4,7 +4,9 @@ Description: Automation of Creating a VPC and deploying a Web App
 Parameters:
   KeyName:
     Description: The EC2 Key Pair to allow SSH access to the instance
-    Type: 'AWS::EC2::KeyPair::KeyName'
+    Tye: 'AWS::EC2::KeyPair::KeyName'
+
+# DO NOT FORGET TO CREATE A KEYPAIR AND THEN TO CHOOSE THE KEYPAIR WHEN UPLODING ON CLOUDFORMATION
 
 Resources:
   VPC:
