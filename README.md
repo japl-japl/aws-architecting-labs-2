@@ -1,7 +1,7 @@
 # aws-architecting-labs-2
 Automation of Deploying a Web Application on AWS
 
-<h1><span style="color: #ff0000;"><strong>Remember first to create a KeyPair and then to select it while runing CloudFormation and also to check the IAM Policy. You will also have to change the ImageId (AMI) since AWS is always changing the Identifier</strong></span></h1>
+<h1><span style="color: #ff0000;"><strong>Remember first to create a KeyPair and then to select it while runing CloudFormation and also to check the IAM Policy. You will also have to change the ImageId (AMI) on the .yaml file since AWS is always changing the Identifier</strong></span></h1>
 
 <div class="Box-body px-5 pb-5">
 
