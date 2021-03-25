@@ -4,7 +4,7 @@ Description: Automation of Creating a VPC and deploying a Web App
 Parameters:
   KeyName:
     Description: The EC2 Key Pair to allow SSH access to the instance
-    Tye: 'AWS::EC2::KeyPair::KeyName'
+    Type: 'AWS::EC2::KeyPair::KeyName'
 
 # DO NOT FORGET TO CREATE A KEYPAIR AND THEN TO CHOOSE THE KEYPAIR WHEN UPLODING ON CLOUDFORMATION
 
@@ -134,6 +134,12 @@ Resources:
         IpProtocol: 'tcp'
         ToPort: 80
 
+      -
+        CidrIp:  0.0.0.0/0
+        FromPort: 3306
+        IpProtocol: 'tcp'
+        ToPort: 3306
+
   DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -160,7 +166,8 @@ Resources:
         Properties:
           Engine: "MYSQL"
           EngineVersion: 8.0.20
-          DBInstanceIdentifier: inventory
+          DBInstanceIdentifier: inventory-db
+          DBName: inventory
           DBInstanceClass: db.t3.micro
           StorageType: standard
           AllocatedStorage: 5
@@ -223,7 +230,7 @@ Resources:
         !Ref "PublicSubnet1"
       IamInstanceProfile:
         !Ref RootInstanceProfile
-      ImageId: ami-048b05baffa30bd5f
+      ImageId: ami-076c2ee28e3f9f38e
       InstanceType: t3.micro
       UserData:
         Fn::Base64: !Sub |
